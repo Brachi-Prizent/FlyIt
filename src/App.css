@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+.link{
+  text-decoration: none;
+  color: cornflowerblue;
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+.flights {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+  text-align: center;
+  font-size: 30px;
+  padding-left: 120px;
+}
+
+.flights td, #flights th {
+  border: 3px solid #413655;
+  padding: 8px;
+}
+
+.flights tr:nth-child(even){background-color: #f2f2f2;}
+
+.flights tr:hover {background-color: #ddd;}
+
+.flights th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0b815c;
+  color: white;
+  text-align: center;
+}
+
