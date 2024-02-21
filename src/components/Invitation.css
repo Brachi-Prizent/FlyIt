@@ -1,0 +1,4 @@
+.invitation{
+    display: flex;
+    flex-direction: column;
+}
