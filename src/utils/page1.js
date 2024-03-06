@@ -25,8 +25,8 @@ import axios from "axios";
           return res.data;
         }
     }
-    export  const getCompany = async () => {
-      let res = await axios.get(`${url}Company/GetCompany`)
+    export  const getAllCompanies = async () => {
+      let res = await axios.get(`${url}Company/GetAllCompanies`)
       if (res) {
           console.log(res)
         return res.data;
@@ -51,23 +51,42 @@ import axios from "axios";
     export  const createNewCustomer = async (customer) => {
       await axios.post(`${url}Customer/AddCustomer`, customer)
     }
-
-    // export const addData = async (object) => {
-    //   // const { name, password, mail }
-    //   fetch(`${serviceURL}/users/register`, object)
-    //       // במקרה של הצלחה
-    //       .then((response) =>
-    //           response.json()
-    //       )
-    //       .then((data) => {
-    //           console.log(data)
-    //           // setData(data)
-    //           // בנקודת הנחה שכל האובייקטים במבנה זהה
-    //           // יצירת מערך עם כל הכותרות
-    //           // data && data?.length > 0 && setKeys(Object.keys(data[0]))
-    //       })
-    //       // במקרה של כשלון
-    //       .catch((e) => console.log(e))
-    //   // בכל מקרה
-    //   // .finally((e) => console.log(e))
-    // }     
+    export  const createOrder = async (order) => {
+      await axios.post(`${url}Order/UpDateOrder`, order)
+    }
+    export  const getFlightsByIdComany = async (id) => {
+      let res = await axios.get(`${url}Company/GetAllFlightsCompany/${id}`)
+      if (res) {
+          console.log(res)
+        return res.data;
+      }
+    }
+    export  const getCustomerById = async (id) => {
+      let res = await axios.get(`${url}Customer/GetCustomer/${id}`)
+      if (res) {
+          console.log(res)
+        return res.data;
+      }
+    }
+    export  const GetStationByIdFlight = async (id) => {
+      let res = await axios.get(`${url}Station/GetStationByIdFlight/${id}`)
+      if (res) {
+          console.log(res)
+        return res.data;
+      }
+    }
+    export  const GetCompanyById = async (id) => {
+      let res = await axios.get(`${url}Company/GetCompanyById/${id}`)
+      if (res) {
+          console.log(res)
+        return res.data;
+      }
+    }
+    export  const getFlightsByNamePlace = async (name) => {
+      let res = await axios.get(`${url}Flight/GetFlightByNamePlace/${name}`)
+      if (res) {
+          console.log(res)
+        return res.data;
+      }
+    }
+       

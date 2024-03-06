@@ -7,15 +7,20 @@ function Main() {
         <>
             <ButtonGroup orientation="vertical" variant="outlined" aria-label="outlined button group">
                 <Button> <Link className="link" to={""}>Home </Link></Button>
-                <Button> <Link className="link" to={"/LogIn"}>LogIn </Link></Button>
-                <Button> <Link className="link" to={"/Blog"}>Blog </Link></Button>
+                <div class="dropdown">
+                    <Button className="link">About</Button>
+                    <div class="dropdown-content">
+                        <a><Link className="link" to={"/About"}> customer</Link></a>
+                        <a><Link className="link" to={"/AboutCompany"}> company</Link></a>
+                    </div>
+                </div>
+                <Button> <Link className="link" to={"/LogIn"}>LogIn </Link> </Button>
                 <Button> <Link className="link" to={"/References"}>References</Link></Button>
-                <Button> <Link className="link" to={"/About"}>About</Link></Button>
+                <Button> <Link className="link" to={"/Blog"}>Blog</Link></Button>
                 <Button> <Link className="link" to={"/Invitation"}>Invitation </Link></Button>
                 <Button> <Link className="link" to={"/Flights"}>Flights</Link></Button>
-
             </ButtonGroup>
-            
+
             {/* <div class="w3-container">
                 <h2>Tabs in a Grid</h2>
 

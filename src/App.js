@@ -14,6 +14,8 @@ import { Flights } from "./components/Flights/Flights";
 import { LogIn } from "./components/LogIn";
 //import { Home } from "@mui/icons-material";
 import { Home } from "./components/Home";
+import { LogInCompany } from "./components/LogIncompany";
+import { AboutCompany } from "./components/AboutCompany";
 
 function App() {
 
@@ -25,13 +27,14 @@ function App() {
         <Routes>
           <Route path="" element={<Home/>}></Route>
           <Route path="LogIn" element={<LogIn />}></Route>
+          <Route path="AboutCompany" element={<AboutCompany />}></Route>
           <Route path="Blog" element={<Blog />}></Route>
           <Route path="References" element={<References />}></Route>
           <Route path="About" element={<About />}></Route>
           <Route path="Flights" element={<Flights />}></Route>
           <Route path="Flights/UpdateFlight/:id" element={<UpdateFlight />}></Route>
           <Route path="Flights/AddFlight" element={<AddFlight />}></Route>
-          <Route path="Invitation/:idPlace" element={<Invitation />}></Route>
+          <Route path="Invitation/:namePlace" element={<Invitation />}></Route>
         </Routes>
       </BrowserRouter>
       </div>

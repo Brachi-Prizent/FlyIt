@@ -1,8 +1,13 @@
 import { Favorite } from "@mui/icons-material"
 import { Rating, Typography } from "@mui/material"
+import { useSelector } from "react-redux";
 
 export const References = () => {
+
+    
+
     return <>References
+
         {/* <Typography component="legend">Custom icon and color</Typography>
         <StyledRating
             name="customized-color"
@@ -13,7 +18,7 @@ export const References = () => {
             emptyIcon={<Favori fontSize="inherit" />}
         />
         <Typography component="legend">10 stars</Typography>*/}
-        
-        <Rating name="customized-10" defaultValue={2} max={10} /> 
+
+        <Rating name="customized-10" defaultValue={2} max={10} />
     </>
 }
