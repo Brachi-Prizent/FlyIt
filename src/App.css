@@ -38,9 +38,9 @@
 }
 .link{
   text-decoration: none;
-  color: cornflowerblue;
+  color: peachpuff;
   font-size: 30px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .flights {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -114,4 +114,6 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-
+/* .tooltip:hover .tooltiptext {
+  visibility: visible;
+} */

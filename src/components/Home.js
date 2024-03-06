@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllFlights } from "../utils/page1";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import './Home.css'
 
 export const Home = () => {
     const [data, setData] = useState();

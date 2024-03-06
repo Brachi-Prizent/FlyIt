@@ -1,7 +1,3 @@
-// import { Blog } from "../src/components/Blog";
-// import { Login } from "../src/components/LogIn";
-// import { User } from "../src/components/User";
-// import { Main } from "../src/components/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import Blog from "./components/Blog";
@@ -16,6 +12,7 @@ import { LogIn } from "./components/LogIn";
 import { Home } from "./components/Home";
 import { LogInCompany } from "./components/LogIncompany";
 import { AboutCompany } from "./components/AboutCompany";
+import { AboutMyWebsite } from "./components/AboutMyWebsite";
 
 function App() {
 
@@ -35,6 +32,7 @@ function App() {
           <Route path="Flights/UpdateFlight/:id" element={<UpdateFlight />}></Route>
           <Route path="Flights/AddFlight" element={<AddFlight />}></Route>
           <Route path="Invitation/:namePlace" element={<Invitation />}></Route>
+          <Route path="AboutMyWebsite" element={<AboutMyWebsite />}></Route>
         </Routes>
       </BrowserRouter>
       </div>

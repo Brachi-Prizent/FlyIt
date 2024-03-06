@@ -1,41 +1,38 @@
-import { Button, ButtonGroup } from "@mui/material";
+import { DesktopMac, Flight, FlightClass, FlightClassOutlined, FlightLand, FlightTakeoffOutlined, FlightTakeoffRounded, FlightTakeoffSharp, FlightTakeoffTwoTone, Home, Login } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-
+import { References } from "./References";
+// import '../App.css'
+import './Main.css'
+import { About } from "./About";
 function Main() {
 
     return (
         <>
-            <ButtonGroup orientation="vertical" variant="outlined" aria-label="outlined button group">
-                <Button> <Link className="link" to={""}>Home </Link></Button>
+            <div className="main">
+                <br /><br />
+                <div><Home /><Link className="link" to={""}>Home</Link></div>
+                <br /><br />
                 <div class="dropdown">
-                    <Button className="link">About</Button>
+                    <div className="link"><DesktopMac />About</div>
                     <div class="dropdown-content">
                         <a><Link className="link" to={"/About"}> customer</Link></a>
                         <a><Link className="link" to={"/AboutCompany"}> company</Link></a>
                     </div>
                 </div>
-                <Button> <Link className="link" to={"/LogIn"}>LogIn </Link> </Button>
-                <Button> <Link className="link" to={"/References"}>References</Link></Button>
-                <Button> <Link className="link" to={"/Blog"}>Blog</Link></Button>
-                <Button> <Link className="link" to={"/Invitation"}>Invitation </Link></Button>
-                <Button> <Link className="link" to={"/Flights"}>Flights</Link></Button>
-            </ButtonGroup>
+                <br /><br />
+                <div><Login></Login><Link className="link" to={"/LogIn"}>LogIn </Link> </div>
+                <br /><br />
+                <div><Flight /><Link className="link" to={"/References"}>References</Link></div>
+                <br /><br />
+                <div> <Link className="link" to={"/Blog"}>Blog</Link></div>
+                {/* <div> <Link className="link" to={"/Invitation"}>Invitation </Link></div> */}
+                {/* <div> <Link className="link" to={"/Flights"}>Flights</Link></div> */}
+                <div><Link className="link" to={"/AboutMyWebsite"}><FlightTakeoffTwoTone sx={{ fontSize: "25vh", marginTop: "30vh", marginRight: "89vw" }}></FlightTakeoffTwoTone></Link></div>
+                {/* <div class="tooltip"><FlightTakeoffTwoTone sx={{ fontSize: "25vh", marginTop: "30vh", marginRight: "89vw" }}></FlightTakeoffTwoTone>
+                    <span class="tooltiptext">Tooltip text</span>
+                </div> */}
 
-            {/* <div class="w3-container">
-                <h2>Tabs in a Grid</h2>
-
-                <div class="w3-row">
-                    <a href="javascript:void(0)" onclick="openCity(event, 'London');">
-                        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">London</div>
-                    </a>
-                    <a href="javascript:void(0)" onclick="openCity(event, 'Paris');">
-                        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Paris</div>
-                    </a>
-                    <a href="javascript:void(0)" onclick="openCity(event, 'Tokyo');">
-                        <div class="w3-third tablink w3-bottombar w3-hover-light-grey w3-padding">Tokyo</div>
-                    </a>
-                </div>
-            </div> */}
+            </div>
         </>
     );
 }

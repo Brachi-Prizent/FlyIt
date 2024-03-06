@@ -11,7 +11,7 @@ import axios from "axios";
     }
 
     export  const getOrdersById = async (id) => {
-        let res = await axios.get(`${url}Order/Get/${id}`)
+        let res = await axios.get(`${url}Customer/GetOrdersByIdCustomer/${id}`)
         if (res) {
             console.log(res)
           return res.data;

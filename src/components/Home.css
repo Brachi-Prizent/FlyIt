@@ -1,4 +1,9 @@
 .home{
+    
     display: flex;
     flex-direction: column;
+    text-align: center;
+    width: 88%;
+    background-color: peachpuff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
