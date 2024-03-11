@@ -18,7 +18,7 @@ import axios from "axios";
         }
     }
 
-    export  const getPlace = async () => {
+    export  const getPlaces = async () => {
         let res = await axios.get(`${url}Place/GetAllPlaces`)
         if (res) {
             console.log(res)

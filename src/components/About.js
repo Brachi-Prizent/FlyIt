@@ -33,7 +33,7 @@ export const About = () => {
 
     return <>
         <div className="about">
-            {userData?.idCustomer != "" && <h1>Hellow {userData.firstname}😉</h1>}
+            {userData?.idCustomer != "" && <h1>Hello {userData.firstname}😉</h1>}
 
             {JSON.stringify(userData) == "{}" && <TextField onBlur={(e) => setId(e.target.value)} id="passWord" label="passWord" variant="outlined" />}
             {JSON.stringify(userData) == "{}" && <Button onClick={Orders}>confirm</Button>}
