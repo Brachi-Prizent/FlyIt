@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getCustomerById, getOrdersById } from "../utils/page1";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField } from "@mui/material";
@@ -14,8 +14,9 @@ export const About = () => {
 
     const userData = useSelector((state) => state.user.CurrentUser);
 
-    const Orders = async () => {
+    const Orders = async (id) => {
         debugger
+        setId(id)
         const customer = await getCustomerById(id);
         dispatch(setCurrentUser(await customer));
         const orders = await getOrdersById(id);
@@ -35,8 +36,7 @@ export const About = () => {
         <div className="about">
             {userData?.idCustomer != "" && <h1>Hello {userData.firstname}😉</h1>}
 
-            {JSON.stringify(userData) == "{}" && <TextField onBlur={(e) => setId(e.target.value)} id="passWord" label="passWord" variant="outlined" />}
-            {JSON.stringify(userData) == "{}" && <Button onClick={Orders}>confirm</Button>}
+            {JSON.stringify(userData) == "{}" && <TextField onBlur={(e) => Orders(e.target.value)} id="passWord" label="passWord" variant="outlined" />}
 
             {myOrders && myOrders.length > 0 && myOrders[0].orders.length > 0 && myOrders.map(x => {
                 return <table>

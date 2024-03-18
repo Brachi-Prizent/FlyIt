@@ -1,27 +1,34 @@
 import { Button, ButtonGroup } from "@mui/material"
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"
-import { deleteFlight, getFlights } from "../../utils/page1";
+import { deleteFlight, getFlights, getFlightsByIdCompany } from "../../utils/page1";
+import { useSelector } from "react-redux";
 
 export const Flights = () => {
+
+    const company = useSelector((state) => state.user.CurrentUser);
+
     const [MyFlight, setMyFlight] = useState([]);
-    const [flt, setUpdateflt] = useState({});
+    const [updateFlight, setUpdateFlight] = useState({});
 
     const getflt = async () => {
-        var flights = await getFlights();
-        setMyFlight(flights);
+        debugger
+        var flights = await getFlightsByIdCompany(company.idCompany);
+        setMyFlight( await flights);
     }
 
     const deleteFlt = async () => {
-        let y = await deleteFlight(flt.idFlight);
+        let y = await deleteFlight(updateFlight.idFlight);
         setMyFlight(await getFlights());
     }
+
     useEffect(() => {
-        getflt();
-    }, [])
-    useEffect(() => {
-        
+        debugger
+        getflt()
     }, [MyFlight])
+    // useEffect(() => {
+        
+    // }, [MyFlight])
 
 
     return <>
@@ -39,7 +46,7 @@ export const Flights = () => {
             </tr>
             {
                 MyFlight && MyFlight.length > 0 && MyFlight.map(p =>
-                    <tr onClick={() => setUpdateflt(p)}>
+                    <tr onClick={() => setUpdateFlight(p)}>
                         <td>{p.idFlight}</td>
                         <td>{p.dateFlight}</td>
                         <td>{p.timeFlight}</td>
@@ -53,10 +60,10 @@ export const Flights = () => {
             }
         </table>
         <br />
-        <ButtonGroup orientation="horizontal" variant="outlined" aria-label="outlined button group">
+        {/* <ButtonGroup orientation="horizontal" variant="outlined" aria-label="outlined button group">
             <Button><NavLink className="link" to="AddFlight">AddFlight </NavLink></Button>
-            <Button><NavLink className="link" to={`UpdateFlight/${flt.idFlight}`}>UpdateFlight </NavLink></Button>
-            {JSON.stringify(flt) != "{}" && <Button sx={{ fontSize: "25px" }} onClick={() => deleteFlt()}>Delete</Button>}
-        </ButtonGroup>
+            <Button><NavLink className="link" to={`UpdateFlight/${updateFlight.idFlight}`}>UpdateFlight </NavLink></Button>
+            {JSON.stringify(updateFlight) != "{}" && <Button sx={{ fontSize: "25px" }} onClick={() => deleteFlt()}>Delete</Button>}
+        </ButtonGroup> */}
     </>
 }

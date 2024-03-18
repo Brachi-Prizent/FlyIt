@@ -13,6 +13,7 @@ import { Home } from "./components/Home";
 import { LogInCompany } from "./components/LogIncompany";
 import { AboutCompany } from "./components/AboutCompany";
 import { AboutMyWebsite } from "./components/AboutMyWebsite";
+import { LostAndFound } from "./components/LostAndFound";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="Flights/AddFlight" element={<AddFlight />}></Route>
           <Route path="Invitation/:namePlace" element={<Invitation />}></Route>
           <Route path="AboutMyWebsite" element={<AboutMyWebsite />}></Route>
+          <Route path="LostAndFound" element={<LostAndFound />}></Route>
         </Routes>
       </BrowserRouter>
       </div>

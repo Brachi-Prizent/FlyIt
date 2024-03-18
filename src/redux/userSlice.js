@@ -12,6 +12,9 @@ export const userSlice = createSlice({
         
         setCurrentUser: (state, action) => {
             state.CurrentUser = action.payload[0];
+        },
+        resetCurrentUser : (state, action) => {
+            state.CurrentUser = {};
         }
     }
 })
@@ -28,7 +31,7 @@ export const orderSlice = createSlice({
 })
 
 
-export const {setCurrentUser} = userSlice.actions;
+export const {setCurrentUser, resetCurrentUser} = userSlice.actions;
 export const {setCurrentOrder} = orderSlice.actions;
 
 //export default userSlice.reducer;

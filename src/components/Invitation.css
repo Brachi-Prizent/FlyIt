@@ -3,17 +3,18 @@
     flex-direction: column;
 }
 .filters{
-    margin-top: 25vh;
+    /* margin-top: 25vh; */
     padding-left: 2vw;
+    padding-bottom: 1%;
     width: 97%;
-    border-top: 3px dashed #0b815c ;
+    border-bottom: 3px dashed #0b815c ;
     text-align: left;
 }
 
 .flip-box {
     background-color: transparent;
     width: 300px;
-    height: 200px;
+    height: 250px;
     /* border: 1px solid #f1f1f1; */
     perspective: 1000px;
     padding: 2vw;

@@ -1,8 +1,10 @@
 import { DesktopMac, Flight, FlightTakeoffTwoTone, Home, Login } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import './Main.css'
+import { useSelector } from "react-redux";
 function Main() {
 
+    const userData = useSelector((state) => state.user.CurrentUser);
     return (
         <>
             <div className="main">
@@ -17,19 +19,15 @@ function Main() {
                     </div>
                 </div>
                 <br/><br/>
-                <div><Login></Login><Link className="link" to={"/LogIn"}>LogIn </Link> </div>
-                <br/><br/>
                 <div><Flight /><Link className="link" to={"/References"}>References</Link></div>
                 <br/><br/>
-                <div> <Link className="link" to={"/Blog"}>Blog</Link></div>
-                {/* <div> <Link className="link" to={"/Invitation"}>Invitation </Link></div> */}
-                {/* <div> <Link className="link" to={"/Flights"}>Flights</Link></div> */}
+                <div><Link className="link" to={"/Blog"}>Blog</Link></div>
+                <br/><br/>
+                <div><Link className="link" to={"/LostAndFound"}>LostAndFound</Link></div>
+                <br/><br/>
+                {JSON.stringify(userData) == "{}" && <div><Login></Login><Link className="link" to={"/LogIn"}>LogIn </Link> </div>}
                 <br/><br/>
                 <div><Link className="link" to={"/AboutMyWebsite"}><FlightTakeoffTwoTone sx={{ fontSize: "25vh", marginTop: "30vh", marginLeft: "-30px" }}></FlightTakeoffTwoTone></Link></div>
-                {/* <div class="tooltip"><FlightTakeoffTwoTone sx={{ fontSize: "25vh", marginTop: "30vh", marginRight: "89vw" }}></FlightTakeoffTwoTone>
-                    <span class="tooltiptext">Tooltip text</span>
-                </div> */}
-
             </div>
         </>
     );

@@ -2,17 +2,17 @@ import { AccountCircle } from "@mui/icons-material";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getCompany, updateFlight,getFlights, getFlightsByIdComany, getAllCompanies } from "../../utils/page1";
+import { updateFlight, getAllCompanies, getFlightsByIdCompany } from "../../utils/page1";
 
 export const UpdateFlight = () => {
 
     const params = useParams()
-    const [idFlight, setIdFlight] = useState(params);
+    //const [idFlight, setIdFlight] = useState(params);
     const [Flight, setFlight] = useState();
     const [cmpny, setCmpny] = useState();
 
     const correctFlight = async() => {
-        let f = await getFlightsByIdComany();
+        let f = await getFlightsByIdCompany();
         for (let index = 0; index < f.length; index++) {
             if (String(f[index].idFlight) === params.id)
                 setFlight(f[index]);
