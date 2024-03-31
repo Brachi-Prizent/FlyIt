@@ -2,19 +2,20 @@ import { AccountCircle } from "@mui/icons-material";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { updateFlight, getAllCompanies, getFlightsByIdCompany } from "../../utils/page1";
+import { updateFlight, getAllCompanies, getFlightsByIdCompany } from "../../utils/get";
 
-export const UpdateFlight = () => {
+export const UpdateFlight = (props) => {
 
-    const params = useParams()
+    //const params = useParams()
     //const [idFlight, setIdFlight] = useState(params);
     const [Flight, setFlight] = useState();
-    const [cmpny, setCmpny] = useState();
+    const [comapnies, setComapnies] = useState();
 
     const correctFlight = async() => {
-        let f = await getFlightsByIdCompany();
+        debugger
+        let f = await getFlightsByIdCompany(props.props);
         for (let index = 0; index < f.length; index++) {
-            if (String(f[index].idFlight) === params.id)
+            if (String(f[index].idFlight) === props.props)
                 setFlight(f[index]);
         }
     }
@@ -23,11 +24,12 @@ export const UpdateFlight = () => {
     //     setAllFlight(f);
     // }
     const updateflt = async () => {
+        debugger
         await updateFlight(Flight);
     }
     const getCmpny = async () => {
         let c = await getAllCompanies();
-        setCmpny(c);
+        setComapnies(c);
     }
     useEffect(() => {
         correctFlight();
@@ -56,7 +58,7 @@ export const UpdateFlight = () => {
                 label="Destination"
                 onChange={getCmpny}
             >
-                {cmpny && cmpny.map(x => <MenuItem value={x.nameCompany}>{x.nameCompany}</MenuItem>)}
+                {comapnies && comapnies.map(x => <MenuItem value={x.nameCompany}>{x.nameCompany}</MenuItem>)}
 
             </Select>
         </FormControl>

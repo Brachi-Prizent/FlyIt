@@ -1,26 +1,38 @@
 import { useState } from "react";
-import { getCustomerById, getOrdersById } from "../utils/page1";
+import { getCustomerById, getOrdersById } from "../utils/get";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { setCurrentUser } from "../redux/userSlice";
+import { Box, Button, Dialog, TextField } from "@mui/material";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { resetCurrentUser, setCurrentUser } from "../redux/userSlice";
 import './About.css'
+import { CustomerOrders } from "./CustomerOrders";
+import { CreditPoints } from "./CreditPoints";
+import { LoginOutlined } from "@mui/icons-material";
+import { LogIn } from "./LogIn";
 
 export const About = () => {
-    const [myOrders, setMyOrders] = useState([]);
+
     const [id, setId] = useState();
+    const [isShowOrders, setIsShowOrders] = useState(false);
+    const [isShowCreditPoint, setIsShowCreditPoint] = useState(false);
+    const [isShowCustomer, setIsShowCustomer] = useState(true);
+    const [custometEmpty, setCustometEmpty] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const userData = useSelector((state) => state.user.CurrentUser);
 
-    const Orders = async (id) => {
+    const newCustomer = async () => {
         debugger
-        setId(id)
+        setIsShowCustomer(false);
         const customer = await getCustomerById(id);
-        dispatch(setCurrentUser(await customer));
-        const orders = await getOrdersById(id);
-        setMyOrders(orders);
+        if (customer.length != 0) {
+            dispatch(setCurrentUser(await customer));
+        }
+        else {
+            setCustometEmpty(true);
+        }
     }
     // const newCustomer = async () => {
     //     //await createNewCustomer(user)
@@ -34,33 +46,42 @@ export const About = () => {
 
     return <>
         <div className="about">
-            {userData?.idCustomer != "" && <h1>Hello {userData.firstname}😉</h1>}
 
-            {JSON.stringify(userData) == "{}" && <TextField onBlur={(e) => Orders(e.target.value)} id="passWord" label="passWord" variant="outlined" />}
+            {!userData?.idCustomer && <Dialog open={isShowCustomer} aria-describedby='alert-dialog-slide-description'>
+                <div className="a">
+                    <h1>hello customer enter your code!</h1>
+                    <Box>
+                        <TextField type="password" id="id" color="success" label="id" variant="outlined" onBlur={(e) => setId(e.target.value)} />
+                    </Box>
+                    <Button variant="contained" color="success" endIcon={<LoginOutlined></LoginOutlined>} onClick={newCustomer}>confirm</Button>
+                    <Button variant="contained" color="success" endIcon={<LoginOutlined></LoginOutlined>} onClick={()=>navigate('/')}>cancel</Button>
+                </div>
+            </Dialog >}
 
-            {myOrders && myOrders.length > 0 && myOrders[0].orders.length > 0 && myOrders.map(x => {
-                return <table>
-                    <tr>
-                        <th>idOrder</th>
-                        <th>idFlight</th>
-                        <th>dateFlight</th>
-                        <th>nameCompany</th>
-                        <th>namePlace</th>
-                        <th>numOfPlace</th>
-                    </tr>
-                    {x.orders.map((o) => {
-                        return <tr>
-                            <td>{o.idOrder}</td>
-                            <td>{o.idFlight}</td>
-                            <td>{o.dateFlight}</td>
-                            <td>{o.nameCompany}</td>
-                            <td>{o.namePlace}</td>
-                            <td>{o.numOfPlace}</td>
-                        </tr>
-                    })}
-                </table>
-            })
+            {JSON.stringify(userData) != "{}" && <h1>Hello {userData.firstname}😉</h1>}
+            {/* {JSON.stringify(userData) == "{}" && <TextField onBlur={(e) => Orders(e.target.value)} id="passWord" label="passWord" variant="outlined" />} */}
+            {JSON.stringify(userData) != "{}" && <Button onClick={() => {
+                setIsShowOrders(false)
+                debugger
+                setIsShowCreditPoint(false)
+                dispatch(resetCurrentUser())
+                setIsShowCustomer(true);
             }
+            }>changeUser</Button>}
+            {JSON.stringify(userData) != "{}" && <Button onClick={() => {
+                setIsShowCreditPoint(true)
+                setIsShowOrders(false)
+            }}>creditPoints</Button>}
+
+            {JSON.stringify(userData) != "{}" && <Button onClick={() => {
+                setIsShowOrders(true)
+                setIsShowCreditPoint(false)
+            }}>my orders</Button>}
+
+            {isShowOrders && <CustomerOrders props={id}></CustomerOrders>}
+            {isShowCreditPoint && <CreditPoints></CreditPoints>}
+            {custometEmpty && <LogIn id={id} setCustometEmpty={setCustometEmpty}></LogIn>}
         </div>
+        <Outlet></Outlet>
     </>
 }

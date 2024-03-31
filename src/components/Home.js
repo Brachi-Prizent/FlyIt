@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllFlights, getPlaces } from "../utils/page1";
+import { getAllFlights, getPlaces } from "../utils/get";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import './Home.css'

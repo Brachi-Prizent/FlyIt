@@ -1,6 +1,6 @@
 import { Button, Checkbox, Dialog, FormControl, InputLabel, ListItemText, MenuItem, Select, TextField } from "@mui/material"
 import { useEffect, useState } from "react";
-import { getFlightsByNamePlace, getFlightsByIdCompany, createOrder } from "../utils/page1";
+import { getFlightsByNamePlace, createOrder, getCompanyByName, UpdateCreditPointCustomer, createCreditPointCustomer, getCreditPointByIdCustomerAndNameCompany } from "../utils/get";
 import { useNavigate, useParams } from "react-router-dom";
 import { Search } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +12,16 @@ import { setCurrentOrder } from "../redux/userSlice";
 export const Invitation = () => {
 
     let dt = new Date();
+    const navigate = useNavigate();
+    const params = useParams()
     const dispatch = useDispatch();
+
     const userData = useSelector((state) => state.user.CurrentUser)
     const typesOfCard = ["Adult", "Child"];
 
-    const [flight, setFlight] = useState();
+    const [currentFlight, setCurrentFlight] = useState();
+    const [pointPrice, setPointPrice] = useState(1);
     const [chooseDate, setChooseDate] = useState(false);
-    //const [isDirect, setIsDirect] = useState(false);
     const [flightList, setFlightList] = useState([]);
     const [filterFlights, setFilterFlights] = useState([]);
     const [myOrder, setMyOrder] = useState({ idOrder: 0, idCustomer: userData.idCustomer, idFlight: 0, numOfChildPlace: 0, numOfAdultPlace: 0 });
@@ -33,15 +36,13 @@ export const Invitation = () => {
     const [selectedChildPrice, setSelectedChildPrice] = useState();
     const [selectedTypeCard, setSelectedTypeCard] = useState([]);
     const [selectedDirectFlight, setSelectedDirectFlight] = useState(false);
+    const [selectedCreditPoint, setSelectedCreditPoint] = useState(0);
 
+    const [companyCreditPoints, setCompanyCreditPoints] = useState({ creditPoint: 0 });
     const [isShowOrder, setIsShowOrder] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [stations, setStations] = useState([]);
-
-
-
-    const navigate = useNavigate();
-    const params = useParams()
+    const [currentCreditPoint, setCurrentCreditPoint] = useState({ idCreditPoint: 0, idCustomer: userData.idCustomer, nameCompany: "", creditPoint: 0 })
 
     const startedFlight = async () => {
         const a = await getFlightsByNamePlace(params.namePlace)
@@ -52,34 +53,59 @@ export const Invitation = () => {
         const comp = [...new Set(flightList.map((x) => x.nameCompany))];
         setCompanies(comp);
     }
-    const fl = (id) => {
-        
-        var f = flightList.find(x => x.idFlight == id);
-        setMyOrder({ ...myOrder, idFlight: id });
+    const fl = async (f) => {
+        debugger
+        const c = await getCreditPointByIdCustomerAndNameCompany(userData.idCustomer, f.nameCompany)
+        setCompanyCreditPoints(c[0]);
+        var f = flightList.find(x => x.idFlight == f.idFlight);
+        setMyOrder({ ...myOrder, idFlight: f.idFlight });
         //var flt = await getFlightsByIdCompany(idFlight);
-        setFlight(f);
-
+        setCurrentFlight(f);
+        setCurrentCreditPoint({ ...currentCreditPoint, nameCompany: f.nameCompany })
     }
 
     const toOrder = async () => {
         debugger
+        //setIsShowOrder(true)
+        //setSelectedCreditPoint(companyCreditPoints?.creditPoint / 2)
+        const comp = await getCompanyByName(currentFlight.nameCompany);
+        setPointPrice(comp[0].pointPrice);
+        //setCurrentCreditPoint({ ...currentCreditPoint, creditPoint: companyCreditPoints?.creditPoint + (myOrder.numOfAdultPlace + myOrder.numOfChildPlace) * currentFlight.timeFlight })
+        setIsShowOrder(false)
+        setCurrentCreditPoint({ ...currentCreditPoint, creditPoint: companyCreditPoints?.creditPoint - selectedCreditPoint + (myOrder.numOfAdultPlace + myOrder.numOfChildPlace) * currentFlight.timeFlight })
+
         if (JSON.stringify(userData) == "{}") {
             dispatch(setCurrentOrder(myOrder))
             navigate('/LogIn');
-            setIsShowOrder(true)
         }
         else {
             await createOrder(myOrder);
-            navigate('/About');
         }
+        navigate('/');
+    }
+
+    const updateCreditPoint = async () => {
+        debugger
+        //const currentCreditPoint = { idCreditPoint: 0, idCustomer: userData.idCustomer, nameCompany: "", creditPoint: 0 }
+        
+        if (companyCreditPoints == undefined) {
+            await createCreditPointCustomer(currentCreditPoint);
+        }
+        else {
+            await UpdateCreditPointCustomer(currentCreditPoint);
+        }
+
+        //setCompanyCreditPoints(currentCreditPoint);
     }
     const changeSort = () => {
         //filterList.sort((x)=> x.price, )
     }
+
     const companyChanged = (event) => {
         const { value } = event.target;
         setSelectedCompanies(value);
     }
+
     const priceChanged = (event) => {
         const { value } = event.target;
         if (selectedTypeCard.includes("Adult")) {
@@ -89,15 +115,20 @@ export const Invitation = () => {
             setSelectedChildPrice(value)
         }
     }
+
     const typeChanged = (event) => {
         const { value } = event.target;
         setSelectedTypeCard(value);
     }
+
     const showStation = (s) => {
         debugger
         setStations(s);
         setIsOpen(true);
     }
+
+
+
     const filterTheList = async () => {
 
         let filterFromDate = flightList, filterUntilDate = flightList, filterCompany = flightList, filterAdultPrice = flightList, filterChildPrice = flightList, filterDirectFlight = flightList;
@@ -123,6 +154,13 @@ export const Invitation = () => {
         setFilterFlights(flightList.filter((x) => filterDirectFlight.includes(x) && filterFromDate.includes(x) && filterUntilDate.includes(x) && filterCompany.includes(x) && filterAdultPrice.includes(x) && filterChildPrice.includes(x)))
 
     }
+    useEffect(() => {
+        debugger
+        if (currentFlight?.idFlight) {
+            updateCreditPoint();
+        }
+    }, [currentCreditPoint?.creditPoint])
+
     useEffect(() => {
         startedFlight();
     }, [])
@@ -216,7 +254,7 @@ export const Invitation = () => {
                         <div class="flip-box-front">
                             <h2>{new Date(p.dateFlight).toLocaleDateString()}</h2>
                         </div>
-                        <div class="flip-box-back" onClick={() => fl(p.idFlight)}>
+                        <div class="flip-box-back" onClick={() => fl(p)}>
                             <h2>company: {p.nameCompany}</h2>
                             <h2>childPrice: {p.childPrice}</h2>
                             <h2>adultPrice: {p.adultPrice}</h2>
@@ -227,12 +265,23 @@ export const Invitation = () => {
                 </div>
             )}
         </div>
+
+        <Dialog open={isShowOrder} onClose={() => {
+            toOrder()
+
+        }} aria-describedby='alert-dialog-slide-description'><div style={{ textAlign: 'center' }}>
+                <h3>do you have {companyCreditPoints?.creditPoint} Credit points </h3>
+                <p>how many CreditPoints do you want to use?</p>
+                <input type="range" value={selectedCreditPoint} min="0" max={companyCreditPoints?.creditPoint} onChange={(e) => setSelectedCreditPoint(parseInt(e.target.value))} />
+                <div>{selectedCreditPoint}</div>
+            </div></Dialog>
+
         {myOrder.idFlight != 0 &&
             <div>
                 <TextField sx={{ width: "300px" }}
-                    onChange={(e) => setMyOrder({ ...myOrder, numOfChildPlace: e.target.value })} id="number" label="*numOfChildPlace" variant="outlined" type="number" />
+                    onChange={(e) => setMyOrder({ ...myOrder, numOfChildPlace: parseInt(e.target.value) })} id="number" label="*numOfChildPlace" variant="outlined" type="number" />
                 <TextField sx={{ width: "300px" }}
-                    onChange={(e) => setMyOrder({ ...myOrder, numOfAdultPlace: e.target.value })} id="number" label="*numOfAdultPlace" variant="outlined" type="number" />
+                    onChange={(e) => setMyOrder({ ...myOrder, numOfAdultPlace: parseInt(e.target.value) })} id="number" label="*numOfAdultPlace" variant="outlined" type="number" />
 
                 <div></div>
 
@@ -240,13 +289,12 @@ export const Invitation = () => {
 
                 {(myOrder.numOfAdultPlace > 0 || myOrder.numOfChildPlace > 0)
                     && filterFlights.map(x =>
-                        (x.idFlight == flight.idFlight) && <h2>{(x.childPrice * myOrder.numOfChildPlace) + (x.adultPrice * myOrder.numOfAdultPlace)}</h2>
+                        (x.idFlight == currentFlight.idFlight) && <h2>{((x.childPrice * myOrder.numOfChildPlace) + (x.adultPrice * myOrder.numOfAdultPlace)) - (pointPrice * selectedCreditPoint)}</h2>
                     )}
             </div>
         }
 
-
-        {(myOrder.numOfAdultPlace > 0 || myOrder.numOfChildPlace > 0) && < Button onClick={toOrder} variant="outlined">click to order</Button>}
+        {(myOrder.numOfAdultPlace > 0 || myOrder.numOfChildPlace > 0) && < Button  onClick={() => companyCreditPoints?.creditPoint > 0 ? setIsShowOrder(true) : toOrder()} variant="outlined">click to order</Button>}
 
         <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">sortBy</InputLabel>

@@ -1,6 +1,6 @@
 import { AccountCircle } from "@mui/icons-material";
 import { Button, TextField } from "@mui/material";
-import { createNewCompany, createNewCustomer } from "../utils/page1";
+import { createNewCompany, createNewCustomer } from "../utils/get";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
