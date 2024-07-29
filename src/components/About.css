@@ -1,0 +1,29 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    width: 88%;
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    /* margin-left: 22vw; */
+}
+
+.btnn {
+    display: flex;
+    flex-direction: row;
+}
+
+.a {
+    padding: 20px;
+}
+
+Button :hover {
+    background-color: '#ffffff';
+    box-shadow: 'none',
+}

@@ -26,12 +26,15 @@ export const orderSlice = createSlice({
     reducers: {
         setCurrentOrder: (state, action) => {
             state.CurrentOrder = action.payload;
+        },
+        resetCurrentOrder : (state, action) => {
+            state.CurrentOrder = {};
         }
     }
 })
 
 
 export const {setCurrentUser, resetCurrentUser} = userSlice.actions;
-export const {setCurrentOrder} = orderSlice.actions;
+export const {setCurrentOrder, resetCurrentOrder} = orderSlice.actions;
 
 //export default userSlice.reducer;

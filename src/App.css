@@ -38,21 +38,22 @@
 }
 .link{
   text-decoration: none;
-  color: peachpuff;
+  color: white;
   font-size: 30px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 .flights {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 75%;
+  width: 50%;
   text-align: center;
-  font-size: 30px;
-  padding-left: 120px;
+  font-size: 25px;
+  /*padding-left: 120px; */
 }
 
-.flights td, #flights th {
-  border: 3px solid #413655;
+.flights td, .flights th {
+  border: 3px solid black;
   padding: 8px;
 }
 
@@ -64,7 +65,7 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #0b815c;
+  background-color: #00559b;
   color: white;
   text-align: center;
 }
@@ -117,3 +118,6 @@
 /* .tooltip:hover .tooltiptext {
   visibility: visible;
 } */
+.error{
+  color: red;
+}

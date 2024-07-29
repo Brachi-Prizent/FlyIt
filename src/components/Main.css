@@ -1,0 +1,17 @@
+
+
+.main{
+    display: flex;
+    flex-direction: column;
+    /* text-align: center; */
+    padding-left: 2%;
+    color: white;
+    width: 14%;
+    min-height: 100vh;
+    background-color: #00559b;
+    cursor: pointer;
+}
+
+.main :hover {
+    color: rgb(208, 201, 201);
+}

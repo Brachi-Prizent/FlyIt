@@ -1,10 +1,35 @@
 .home{
-    /* font-size: 30px; */
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 88%;
-    background-color: peachpuff;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /* align-items: center; */
+    width: 86%;
+    background-color: white;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-family: cursive;
+    align-items: center;
+}
+.contries{
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.contry{
+    margin: 0.5%;
+}
+img{
+    border: black 1px solid;
+    width: 19vw;
+    height: 25vh;
+}
+.error{
+    color: red;
+}
+.btn{
+    background-color: coral;
+    color: white;
+}
+
+.rowSelected{
+    color: #67c6b8;
 }

@@ -1,5 +1,5 @@
-import { Box, MenuItem, TextField } from "@mui/material";
-import { Button, ButtonGroup, FormControl, InputLabel, Select } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
+import { FormControl, InputLabel, Select } from "@mui/material";
 import { useState } from "react";
 import '../App.css'
 import './Blog.css'
@@ -7,12 +7,7 @@ import { Link } from "react-router-dom";
 
 function Blog() {
 
-    const [status, setStatus] = useState("choose status");
     const [myErrors, setMyErrors] = useState({ nameError: "", ageError: "", emaiError: "", PasswordError: "" })
-
-    const handleChange = (e) => {
-        setStatus(e.target.value)
-    }
 
     const validatePass = (event) => {
         event.preventDefault();
@@ -41,10 +36,10 @@ function Blog() {
     }
 
     const validateEmail = (event) => {
-        if (event.target.value == "")
-            setMyErrors({ ...myErrors, emailError: "כתובת מייל הינו שדה חובהת" })
+        if (!event.target.value)
+            setMyErrors({ ...myErrors, emailError: "Required!!!" })
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(event.target.value))
-            setMyErrors({ ...myErrors, emailError: "כתובת מייל אינה תיקנית" })
+            setMyErrors({ ...myErrors, emailError: "Wrong...!!" })
         else {
             //setUserData({ ...userData, email: event.target.value })
             setMyErrors({ ...myErrors, emailError: 'Correct!!!' })
@@ -54,19 +49,7 @@ function Blog() {
     return <>
     
         <div className="App">
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">status</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={status}
-                    label="status"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={"buying"}>{"buying"}</MenuItem>
-                    <MenuItem value={"factor"}>{"factor"}</MenuItem>
-                </Select>
-            </FormControl>
+            
             <TextField onChange={(e) => validatePass(e)} id="passWord" label="passWord" variant="outlined" />
             <h3 className="error">{myErrors?.PasswordError}</h3>
             <TextField onChange={(e) => validateName(e)} id="fullName" label="fullName" variant="outlined" />

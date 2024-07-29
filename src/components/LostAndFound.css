@@ -1,0 +1,58 @@
+
+.laf {
+    margin: 5vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;
+    /* padding-left: 2%; */
+    /* color: peachpuff; */
+    width: 80%;
+    /* min-height: 100vh; */
+    /* background-color: #00559b;
+    cursor: pointer; */
+}
+
+#myInput {
+    /* background-image: url('../css/searchicon.png'); */
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 45%;
+    font-size: 20px;
+    padding: 12px 20px 12px 40px;
+    border: 1.5px solid #00559b;
+    margin: 2vw;
+}
+
+#losts {
+    /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
+    border-collapse: collapse;
+    /* width: 40%; */
+}
+
+#losts td,
+#losts th {
+    border: 3px solid #ddd;
+    padding: 8px;
+}
+
+#losts tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#losts tr:hover {
+    background-color: #ddd;
+}
+
+#losts th {
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #00559b;
+    color: white;
+    text-align: center;
+}
+
+

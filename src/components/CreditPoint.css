@@ -1,0 +1,14 @@
+.cardim {
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    color: blue;
+}
+.cim{
+    margin-top: 10vh;
+    
+}
+.not {
+    text-align: center;
+    color: #00559b;
+}
